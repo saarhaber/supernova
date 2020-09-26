@@ -3,7 +3,6 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Home from './screens/Home';
-
 import Search from './screens/Search';
 import Scan from './screens/Scan';
 import Bookevents from './screens/Bookevents';
