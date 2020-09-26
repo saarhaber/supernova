@@ -1,12 +1,18 @@
-import React, { Component } from "react";
-import { View, Text } from "react-native"
+import * as React from 'react';
+import { Button, View, Text } from 'react-native';
 
-export default class Bookevents extends Component {
-    render() {
-        return (
-            <View>
-                <Text>Book Signing Events Page!</Text>
-            </View>
-        );
-    }
+class Bookevents extends React.Component {
+    render()
+    {
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text>Book Signing Events Page</Text>
+        <Button
+          title="Home"
+          onPress={() => this.props.navigation.navigate('Home')}
+        />
+      </View>
+    );
+  }
 }
+export default Bookevents;

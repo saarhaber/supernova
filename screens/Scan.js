@@ -1,19 +1,18 @@
-import React, { Component } from "react";
-import { View, Text } from "react-native"
-import navStyles from '../styles/navStyles'
+import * as React from 'react';
+import { Button, View, Text } from 'react-native';
 
-export default class Scan extends Component {
-
-    static navigationOptions = {
-        title: "Scan",
-        ...navStyles
-      };
-
-    render() {
-        return (
-            <View>
-                <Text>Scan Page!</Text>
-            </View>
-        );
-    }
+class Scan extends React.Component {
+    render()
+    {
+    return (
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text>Scan Page</Text>
+        <Button
+          title="Home"
+          onPress={() => this.props.navigation.navigate('Home')}
+        />
+      </View>
+    );
+  }
 }
+export default Scan;

@@ -2,8 +2,11 @@ import 'react-native-gesture-handler';
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import Search from './screens/Search';
+import Home from './screens/Home';
 import Scan from './screens/Scan';
-import HomeScreen from './screens/HomeScreen'
+import Bookevents from './screens/Bookevents';
+import Favorite from './screens/Favorite';
 
 const Stack = createStackNavigator();
 
@@ -13,10 +16,13 @@ const App = () => {
      <Stack.Navigator>
         <Stack.Screen
           name="Home"
-          component={HomeScreen}
-          options={{ title: 'Welcome' }}
+          component={Home}
+          options={{ title: 'Supernova' }}
         />
+        <Stack.Screen name="Search" component={Search} />
         <Stack.Screen name="Scan" component={Scan} />
+        <Stack.Screen name="Favorite" component={Favorite} />
+        <Stack.Screen name="Bookevents" component={Bookevents} />
       </Stack.Navigator>
     </NavigationContainer>
   );
