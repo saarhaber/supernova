@@ -2,10 +2,6 @@ import * as React from 'react';
 import { Button, View, Text, ScrollView, Dimensions} from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 
-/*
-key: l2sRuWFpQfI2HFPSm96ZmQ
-secret: 65YExjsKFQJaDmsuFmT7aRcVbpvTgMcIABO49lxM3NE
-*/
 
 class Search extends React.Component {
     constructor(props) {
