@@ -11,24 +11,26 @@ class Search extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            key:"l2sRuWFpQfI2HFPSm96ZmQ",
+            key:"9d36aa03f3dab521f27f0c7fc737698dbe01df70", //iDreamsBooks
             inputIsbn: '',
             reviews: null
         }
     }
     
     handleSubmit() {
-        fetch(`https://www.goodreads.com/book/isbn/${this.inputIsbn}.json?key=${this.key}`, {
+        this.setState({reviews:
+        fetch(`http://idreambooks.com/api/books/reviews.json?q=${this.state.inputIsbn}&key=${this.state.key}`, {
             method: 'GET'
         })
-          .then ((response) => response.text())
+          .then ((response) => response.json())
           .then ((json) => {
-              console.log(json)
-            //   this.setState({reviews: json.book.reviews_widget});
+              console.log(json.book.critic_reviews)
+              return json.book.critic_reviews;
           })
             .catch((err) => {
                 console.log(err);
-            });
+            })
+        })
     }
 
 
@@ -47,7 +49,7 @@ class Search extends React.Component {
           onPress={() => this.props.navigation.navigate('Home')}
         />
         <View>
-            <Text>{this.state.reviews}</Text>
+            {/*<Text>{this.state.reviews}</Text>*/}
         </View>
       </View>
        
