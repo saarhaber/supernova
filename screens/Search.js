@@ -1,9 +1,7 @@
 import * as React from 'react';
-import { Button, View, Text} from 'react-native';
+import { Button, View, ScrollView,SafeAreaView, Text, FlatList, StyleSheet, Linking, TouchableOpacity} from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import {Card} from 'react-native-shadow-cards';
-
-
 
 class Search extends React.Component {
     constructor(props) {
@@ -17,57 +15,97 @@ class Search extends React.Component {
     }
     
     handleSubmit() {
-      this.setState({reviews: 
           fetch(`http://idreambooks.com/api/books/reviews.json?q=${this.state.inputIsbn}&key=${this.state.key}`, {
             method: 'GET'
         })
           .then (response => response.json() )
           .then (res => {
-              console.log("returned: ", (res))
-              return res;
+              this.setState({reviews: res.book.critic_reviews})
           })
             .catch( err => {
                 console.log(err);
             })
-          })
+        
     }
 
-    hanldeLog() {
-      console.log (this.state.reviews);
-    }
+  //   renderReviewsInfo(){
+  //     return(
+  //         < ScrollView>
+  //             <FlatList
+  //                 data={this.state.reviews}
+  //                 keyExtractor={item => item.source.toString()}
+  //                 renderItem={({ item }) => (
+  //                 <Card style={styles.card}>
+  //                   <TouchableOpacity  style={styles.title} onPress={()=>{Linking.openURL(item.review_link)}}>
+  //                 <Text style={styles.source}> {item.source}  {item.star_rating}/5  {item.review_date}</Text>
+  //                   <Text style={styles.more}>read full review</Text>
+  //                   </TouchableOpacity>
+  //                   <Text style={styles.snippet}>{item.snippet}</Text>
+  //                 </Card>
+  //                 )}
+  //             />
+  //         </ScrollView>
+  //     )
+  // }
 
-
-    render() {
+  render() {
+    
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Search Page</Text>
-        <Button
-          title="Home"
-          type="button"
-          onPress={() => this.props.navigation.navigate('Home')}
-        />
-        <View>
-      <Card style={{padding: 10, margin: 10}}>
+      <View  style={{ alignItems: 'center', justifyContent: 'center', marginTop: 100}}>
+        <View >
+      <Card style={{padding: 10,  }}>
       <TextInput placeholder = {"Enter ISBN number"}
         onChangeText={(text) => this.setState({inputIsbn: text})}></TextInput>
-      </Card>
+      </Card></View>
+      <View>
       <Card style={{padding: 10, margin: 10}}>
       <Button
           title="Submit"
           onPress={() =>  this.handleSubmit()}
         />
       </Card>
-      <Card>
-    <Text>{this.state.reviews[0] ? this.state.reviews[0].snippet : "hi"}</Text>
-    <Button
-          title="log"
-          onPress={() =>  this.hanldeLog()}
-        />
-      </Card>
+              <FlatList
+                  data={this.state.reviews}
+                  keyExtractor={item => item.source.toString()}
+                  renderItem={({ item }) => (
+                  <Card style={styles.card}>
+                    <TouchableOpacity  style={styles.title} onPress={()=>{Linking.openURL(item.review_link)}}>
+                  <Text style={styles.source}> {item.source}  {item.star_rating}/5</Text>
+                    <Text style={styles.more}>read full review</Text>
+                    </TouchableOpacity>
+                    <Text style={styles.snippet}>{item.snippet}</Text>
+                  </Card>
+                  )}
+              />
     </View>
       </View>
     );
   }
 }
+
+
+const styles = StyleSheet.create({
+  card: {
+    backgroundColor: '#e7ad99',
+    marginBottom: 10
+  },
+  snippet: {
+    backgroundColor: '#ce796b',
+    padding: 5,
+  },
+  title: {
+    justifyContent: "space-between",
+    flexDirection: "row",
+    borderBottomWidth: 1,
+    alignItems: "flex-end"
+  },
+  source: {
+    fontSize: 15,
+  },
+  more: {
+    fontSize: 13,
+    fontStyle: "italic",
+  }
+});
 
 export default Search;
