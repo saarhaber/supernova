@@ -7,11 +7,14 @@ import Search from './screens/Search';
 import Scan from './screens/Scan';
 import Bookevents from './screens/Bookevents';
 import Favorite from './screens/Favorite';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-const Stack = createStackNavigator();
+//const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
 const App = () => {
   return (
+    /*
     <NavigationContainer>
      <Stack.Navigator>
         <Stack.Screen
@@ -25,6 +28,22 @@ const App = () => {
         <Stack.Screen name="Bookevents" component={Bookevents} />
       </Stack.Navigator>
     </NavigationContainer>
+      */
+    <NavigationContainer>
+      <Tab.Navigator> 
+        <Tab.Screen
+          name="Home"
+          component={Home}
+          options={{ title: 'Supernova' }}
+        />
+        <Tab.Screen name="Search" component={Search} />
+        <Tab.Screen name="Scan" component={Scan} />
+        <Tab.Screen name="Favorite" component={Favorite} />
+        <Tab.Screen name="Bookevents" component={Bookevents} />
+      </Tab.Navigator>
+    </NavigationContainer>
+
+
   );
 };
 
