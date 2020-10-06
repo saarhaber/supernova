@@ -28,26 +28,6 @@ class Search extends React.Component {
         
     }
 
-  //   renderReviewsInfo(){
-  //     return(
-  //         < ScrollView>
-  //             <FlatList
-  //                 data={this.state.reviews}
-  //                 keyExtractor={item => item.source.toString()}
-  //                 renderItem={({ item }) => (
-  //                 <Card style={styles.card}>
-  //                   <TouchableOpacity  style={styles.title} onPress={()=>{Linking.openURL(item.review_link)}}>
-  //                 <Text style={styles.source}> {item.source}  {item.star_rating}/5  {item.review_date}</Text>
-  //                   <Text style={styles.more}>read full review</Text>
-  //                   </TouchableOpacity>
-  //                   <Text style={styles.snippet}>{item.snippet}</Text>
-  //                 </Card>
-  //                 )}
-  //             />
-  //         </ScrollView>
-  //     )
-  // }
-
   render() {
     
     return (
