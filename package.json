@@ -17,7 +17,10 @@
     "atob": "^2.1.2",
     "cards": "^1.0.3",
     "expo": "^39.0.3",
+    "expo-barcode-scanner": "^9.0.0",
+    "expo-cli": "^3.27.14",
     "expo-status-bar": "^1.0.2",
+    "global": "^4.4.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -35,7 +38,8 @@
     "react-native-vector-icons": "^7.1.0",
     "react-native-web": "^0.13.12",
     "react-native-webview": "*",
-    "react-navigation": "^4.4.1"
+    "react-navigation": "^4.4.1",
+    "yarm": "^0.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.11.6",
