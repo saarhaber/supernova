@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet, Button } from 'react-native';
+import { Text, View, StyleSheet, Button, Image } from 'react-native';
 import { BarCodeScanner } from 'expo-barcode-scanner';
 
 export default function App() {
@@ -27,17 +27,20 @@ export default function App() {
 
   return (
     <View
-      style={{
-        flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'flex-end',
-      }}>
-      <BarCodeScanner
-        onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
-        style={StyleSheet.absoluteFillObject}
-      />
-
-      {scanned && <Button title={'Tap to Scan Again'} onPress={() => setScanned(false)} />}
+    style={{
+    flex: 1,
+    flexDirection: 'column',
+    }}>
+    <BarCodeScanner
+      onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+      style={StyleSheet.absoluteFillObject}
+    />
+    <View style = {{alignItems:'center',padding:100}}>
+    <Image style = {{width:500 ,height:500 }} source = {{uri:'https://i.stack.imgur.com/VVqSa.png'}}/>
+    </View>
+    <View style = {{flex:1,flexDirection:'column',justifyContent: 'flex-end'}}>
+    {scanned && <Button title={'Tap to Scan Again'} onPress={() => setScanned(false)} />}
+    </View>
     </View>
   );
 }
