@@ -38,7 +38,7 @@ export default function App() {
     <View style = {{alignItems:'center',padding:100}}>
     <Image style = {{width:500 ,height:500 }} source = {{uri:'https://i.stack.imgur.com/VVqSa.png'}}/>
     </View>
-    <View style = {{flex:1,flexDirection:'column',justifyContent: 'flex-end'}}>
+    <View style = {{flex:1,flexDirection:'column',justifyContent:'space-evenly'}}>
     {scanned && <Button title={'Tap to Scan Again'} onPress={() => setScanned(false)} />}
     </View>
     </View>
