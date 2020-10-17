@@ -51,11 +51,12 @@ class Search extends React.Component {
         onChangeText={(text) => this.setState({inputIsbn: text})}></TextInput>
       </Card></View>
       <View>
-      <Card style={{padding: 10, margin: 10}}>
+      <Card style={{padding: 10, margin: 10,flexDirection:'row',justifyContent:'space-evenly'}}>
       <Button
           title="Submit"
           onPress={() =>  this.handleSubmit()}
         />
+      <Button title = "ISBN Scan" onPress={() => this.props.navigation.navigate('Scan')}/>
       </Card>
       <View >
     <Text style={this.state.book ? styles.title : null}>{this.state.book.title}</Text>
