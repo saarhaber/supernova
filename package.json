@@ -19,6 +19,7 @@
     "expo": "^39.0.3",
     "expo-barcode-scanner": "^9.0.0",
     "expo-cli": "^3.27.14",
+    "expo-splash-screen": "^0.6.2",
     "expo-status-bar": "^1.0.2",
     "global": "^4.4.0",
     "prop-types": "^15.7.2",
@@ -39,6 +40,7 @@
     "react-native-web": "^0.13.12",
     "react-native-webview": "*",
     "react-navigation": "^4.4.1",
+    "unimodules-permissions-interface": "^5.3.0",
     "yarm": "^0.4.0"
   },
   "devDependencies": {
