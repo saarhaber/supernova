@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, View, ScrollView,SafeAreaView, Text, FlatList, StyleSheet, Linking, TouchableOpacity} from 'react-native';
+import { Button, View, Text, FlatList, StyleSheet, Linking, TouchableOpacity} from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import {Card} from 'react-native-shadow-cards';
 
