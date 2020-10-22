@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, View, Text, Linking, TouchableOpacity, FlatList, StyleSheet} from 'react-native';
+import { Button, View, Text, Image, Linking, TouchableOpacity, FlatList, StyleSheet} from 'react-native';
 import {Card} from 'react-native-shadow-cards';
 
 class Home extends React.Component {
@@ -7,13 +7,13 @@ class Home extends React.Component {
     super(props)
     this.state = {
         keyNYT:"orP8vrQNvABHG8kLlAsk4cdfgOJ6A46p",
-        keyGG: "",
+        keyGG: "AIzaSyCJkIgTYX0-lGVkN53U-vYgkqrKkuWoGFU",
         best: ''
     }
 }
 
-  getList() {
-    fetch(`https://api.nytimes.com/svc/books/v3/lists.json?list-name=hardcover-fiction&api-key=${this.state.keyNYT}`,
+  componentDidMount() {
+    fetch(`https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=${this.state.keyNYT}`,
     {    method: 'get'  })
     .then(response => response.json())
     .then (json => this.setState({best : json.results}))
@@ -23,25 +23,26 @@ class Home extends React.Component {
     })
 }
 
-
     render ()
     {
     return (
       <View>
-      <View style={{marginTop: 100, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>New York Times Best Sellers List</Text>
-        <Button title="get list" onPress={()=> this.getList()}/>
+      <View style={{marginTop: 60, alignItems: 'center', justifyContent: 'center' }}>
+        <Text style={styles.head}>New York Times Best Sellers List</Text>
       </View>
       <View>
       <FlatList style={styles.list}
-          data={this.state.best}
+          data={this.state.best.books}
           keyExtractor={item => item.rank.toString()}
           renderItem={({ item }) => (
           <Card style={styles.card}>
             <TouchableOpacity  style={styles.title}>
-          <Text style={styles.source}>{item.rank}. {item.book_details[0].title}{'\n'}by {item.book_details[0].author}</Text>
+          <Text style={styles.source}>{item.rank}. {item.title}{'\n'}by {item.author}</Text>
             </TouchableOpacity>
-            <Text style={styles.snippet}> picture goes here</Text>
+            <View style={styles.picAnd}>
+            <Image style={styles.pic} source={{uri: item.book_image}} />
+            <Text style={styles.snippet}>{item.description}</Text>
+            </View>
           </Card>
           )}
       />
@@ -53,6 +54,16 @@ class Home extends React.Component {
 
 
 const styles = StyleSheet.create({
+  head: {
+    fontSize: 20,
+  },
+  pic: {
+    width: 60,
+    height: 100,
+  },
+  picAnd: {
+    flexDirection: "row",
+  },
   card: {
     backgroundColor: '#e7ad99',
     marginTop: 10,
@@ -60,18 +71,20 @@ const styles = StyleSheet.create({
   },
   snippet: {
     backgroundColor: '#ce796b',
-    padding: 5,
+    marginRight: 70,
+    marginLeft: 5,
+    fontSize: 15
   },
   title: {
     justifyContent: "space-between",
     borderBottomWidth: 1,
   },
   source: {
-    fontSize: 14,
+    fontSize: 17,
   },
   list: {
-    marginBottom: 330,
-    marginLeft: 15,
+    marginBottom: 180,
+    marginLeft: 18,
   }
 });
 
