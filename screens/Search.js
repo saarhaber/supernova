@@ -8,7 +8,7 @@ class Search extends React.Component {
         super(props)
         this.state = {
             key:"9d36aa03f3dab521f27f0c7fc737698dbe01df70", //iDreamsBooks
-            inputIsbn: '',
+            inputIsbn: this.props.route.params,
             reviews: [],
             book: "",
             by: 'By ',
@@ -17,7 +17,8 @@ class Search extends React.Component {
     }
     
     handleSubmit() {
-          fetch(`http://idreambooks.com/api/books/reviews.json?q=${this.state.inputIsbn}&key=${this.state.key}`, {
+        //alert(JSON.stringify(this.state.inputIsbn.Passed.data));
+          fetch(`http://idreambooks.com/api/books/reviews.json?q=${this.state.inputIsbn.Passed.data}&key=${this.state.key}`, {
             method: 'GET'
         })
           .then (response => response.json() )
@@ -28,7 +29,7 @@ class Search extends React.Component {
                 console.log(err);
             })
 
-          fetch(`http://idreambooks.com/api/books/reviews.json?q=${this.state.inputIsbn}&key=${this.state.key}`, {
+          fetch(`http://idreambooks.com/api/books/reviews.json?q=${this.state.inputIsbn.Passed.data}&key=${this.state.key}`, {
             method: 'GET'
         })
           .then (response => response.json() )
@@ -42,12 +43,12 @@ class Search extends React.Component {
     }
 
   render() {
-    
+   // const Passed = this.props.route.params
     return (
       <View  style={{ alignItems: 'center', justifyContent: 'center', marginTop: 100}}>
         <View >
       <Card style={{padding: 10,  }}>
-      <TextInput placeholder = {"Enter ISBN number"}
+      <TextInput placeholder = {"Enter ISBN number"} //defaultValue={Passed.Passed}
         onChangeText={(text) => this.setState({inputIsbn: text})}></TextInput>
       </Card></View>
       <View>
@@ -60,7 +61,7 @@ class Search extends React.Component {
       </Card>
       <View >
     <Text style={this.state.book ? styles.title : null}>{this.state.book.title}</Text>
-    <Text style={this.state.book ? styles.title : null}>{this.state.book.author ? (this.state.by + this.state.book.author) : null}</Text>
+    <Text style={this.state.book ? styles.title : null}>{this.state.book.author ? (this.state.by + this.state.book.author) : null} </Text>
       </View>
       <FlatList
           data={this.state.reviews}
