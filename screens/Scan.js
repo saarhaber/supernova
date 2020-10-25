@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, View, StyleSheet, Button } from 'react-native';
+import { Text, View, StyleSheet, Button, Image } from 'react-native';
 import * as Permissions from 'expo-permissions';
 
 import { BarCodeScanner } from 'expo-barcode-scanner';
@@ -49,13 +49,17 @@ export default class BarcodeScannerExample extends React.Component {
           onBarCodeScanned={scanned ? undefined : this.handleBarCodeScanned}
           style={StyleSheet.absoluteFillObject}
         />
-
+        <View style = {{alignItems:'center',padding:100}}>
+          <Image source = {{uri:'https://i.stack.imgur.com/VVqSa.png'}} style = {{width:500 ,height:500 }} />
+        </View>
+        <View style = {{flex:1,flexDirection:'column',justifyContent: 'space-around'}}>
         {scanned && (
           <Button
             title={'Tap to go back'}
             onPress={() => this.afterScanned()}
           />
         )}
+        </View>
       </View>
     );
   }
