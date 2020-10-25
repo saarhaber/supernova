@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Text, View, StyleSheet, Button } from 'react-native';
-import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 
 import { BarCodeScanner } from 'expo-barcode-scanner';
@@ -25,8 +24,7 @@ export default class BarcodeScannerExample extends React.Component {
   afterScanned(){
     this.setState({scanned:false});
     var data = this.state.isbn_data;
-    //data = JSON.stringify(data);
-    //alert(data);
+    this.setState({scanned:false});
     this.props.navigation.navigate('Search',{Passed: {data} });
   }
 
@@ -66,7 +64,6 @@ export default class BarcodeScannerExample extends React.Component {
     this.setState({ scanned: true });
     this.setState({isbn_data: data});
     
-    //alert(`Bar code with type ${type} and data ${data} has been scanned!`);
     
 
   };
