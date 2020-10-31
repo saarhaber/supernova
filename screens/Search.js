@@ -8,7 +8,7 @@ class Search extends React.Component {
         super(props)
         this.state = {
             key:"9d36aa03f3dab521f27f0c7fc737698dbe01df70", //iDreamsBooks
-            inputIsbn: this.props.route.params,
+            inputIsbn: '',
             reviews: [],
             book: "",
             by: 'By ',
@@ -16,9 +16,9 @@ class Search extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     
-    handleSubmit() {
-        //alert(JSON.stringify(this.state.inputIsbn.Passed.data));
-          fetch(`http://idreambooks.com/api/books/reviews.json?q=${this.state.inputIsbn.Passed.data}&key=${this.state.key}`, {
+    handleSubmit(scannedData) {
+        if(scannedData != "False"){
+          fetch(`http://idreambooks.com/api/books/reviews.json?q=${scannedData.data}&key=${this.state.key}`, {
             method: 'GET'
         })
           .then (response => response.json() )
@@ -29,7 +29,7 @@ class Search extends React.Component {
                 console.log(err);
             })
 
-          fetch(`http://idreambooks.com/api/books/reviews.json?q=${this.state.inputIsbn.Passed.data}&key=${this.state.key}`, {
+          fetch(`http://idreambooks.com/api/books/reviews.json?q=${scannedData.data}&key=${this.state.key}`, {
             method: 'GET'
         })
           .then (response => response.json() )
@@ -39,23 +39,47 @@ class Search extends React.Component {
             .catch( err => {
                 console.log(err);
             })
+        }else{
+          fetch(`http://idreambooks.com/api/books/reviews.json?q=${this.state.inputIsbn}&key=${this.state.key}`, {
+            method: 'GET'
+        })
+          .then (response => response.json() )
+          .then (res => {
+              this.setState({reviews: res.book.critic_reviews})
+          })
+            .catch( err => {
+                console.log(err);
+            })
+
+          fetch(`http://idreambooks.com/api/books/reviews.json?q=${this.state.inputIsbn}&key=${this.state.key}`, {
+            method: 'GET'
+        })
+          .then (response => response.json() )
+          .then (res => {
+              this.setState({book: res.book})
+          })
+            .catch( err => {
+                console.log(err);
+            })
+        }
+            this.setState({inputIsbn:''})
         
     }
 
   render() {
-   // const Passed = this.props.route.params
+    const {Passed} = this.props.route.params;         
     return (
       <View  style={{ alignItems: 'center', justifyContent: 'center', marginTop: 100}}>
         <View >
       <Card style={{padding: 10,  }}>
-      <TextInput placeholder = {"Enter ISBN number"} //defaultValue={Passed.Passed}
+      <TextInput placeholder = {"Enter ISBN number"} 
         onChangeText={(text) => this.setState({inputIsbn: text})}></TextInput>
       </Card></View>
       <View>
       <Card style={{padding: 10, margin: 10,flexDirection:'row',justifyContent:'space-evenly'}}>
       <Button
           title="Submit"
-          onPress={() =>  this.handleSubmit()}
+          onPress={() =>  this.handleSubmit(Passed)}
         />
       <Button title = "ISBN Scan" onPress={() => this.props.navigation.navigate('Scan')}/>
       </Card>

@@ -19,7 +19,7 @@ const App = () => {
           component={Home}
           options={{ title: 'Supernova' }}
         />
-        <Tab.Screen name="Search" component={Search} />
+        <Tab.Screen name="Search" component={Search} initialParams={{ Passed:"False"}} />
         <Tab.Screen name="Scan" component={Scan} />
         <Tab.Screen name="Favorite" component={Favorite} />
         <Tab.Screen name="Bookevents" component={Bookevents} />
