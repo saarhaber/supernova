@@ -21,13 +21,6 @@ export default class BarcodeScannerExample extends React.Component {
     this.setState({ hasCameraPermission: status === 'granted' });
   }
 
-  afterScanned(){
-    this.setState({scanned:false});
-    var data = this.state.isbn_data;
-    this.setState({scanned:false});
-    this.props.navigation.navigate('Search',{Passed: {data} });
-  }
-
   render() {
 
     const { hasCameraPermission, scanned } = this.state;
@@ -53,12 +46,6 @@ export default class BarcodeScannerExample extends React.Component {
           <Image source = {{uri:'https://i.stack.imgur.com/VVqSa.png'}} style = {{width:500 ,height:500 }} />
         </View>
         <View style = {{flex:1,flexDirection:'column',justifyContent: 'space-around'}}>
-        {scanned && (
-          <Button
-            title={'Tap to go back'}
-            onPress={() => this.afterScanned()}
-          />
-        )}
         </View>
       </View>
     );
@@ -66,7 +53,8 @@ export default class BarcodeScannerExample extends React.Component {
 
   handleBarCodeScanned = ({ type, data }) => {
     this.setState({ scanned: true });
-    this.setState({isbn_data: data});
+    this.setState({scanned:false});
+    this.props.navigation.navigate('Search',{Passed: {data} });
     
     
 
