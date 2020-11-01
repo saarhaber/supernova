@@ -12,13 +12,14 @@ class Search extends React.Component {
             reviews: [],
             book: "",
             by: 'By ',
+            placeholder: "Enter ISBN number",
         }
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     
     handleSubmit(scannedData) {
-        if(scannedData != "False"){
-          fetch(`http://idreambooks.com/api/books/reviews.json?q=${scannedData.data}&key=${this.state.key}`, {
+        if (this.state.inputIsbn!=''){
+          fetch(`http://idreambooks.com/api/books/reviews.json?q=${this.state.inputIsbn}&key=${this.state.key}`, {
             method: 'GET'
         })
           .then (response => response.json() )
@@ -29,7 +30,7 @@ class Search extends React.Component {
                 console.log(err);
             })
 
-          fetch(`http://idreambooks.com/api/books/reviews.json?q=${scannedData.data}&key=${this.state.key}`, {
+          fetch(`http://idreambooks.com/api/books/reviews.json?q=${this.state.inputIsbn}&key=${this.state.key}`, {
             method: 'GET'
         })
           .then (response => response.json() )
@@ -39,8 +40,11 @@ class Search extends React.Component {
             .catch( err => {
                 console.log(err);
             })
-        }else{
-          fetch(`http://idreambooks.com/api/books/reviews.json?q=${this.state.inputIsbn}&key=${this.state.key}`, {
+            this.setState({inputIsbn:''})
+        }
+        else if(scannedData != "False"){
+          this.setState({inputIsbn: scannedData.data})
+          fetch(`http://idreambooks.com/api/books/reviews.json?q=${scannedData.data}&key=${this.state.key}`, {
             method: 'GET'
         })
           .then (response => response.json() )
@@ -51,7 +55,7 @@ class Search extends React.Component {
                 console.log(err);
             })
 
-          fetch(`http://idreambooks.com/api/books/reviews.json?q=${this.state.inputIsbn}&key=${this.state.key}`, {
+          fetch(`http://idreambooks.com/api/books/reviews.json?q=${scannedData.data}&key=${this.state.key}`, {
             method: 'GET'
         })
           .then (response => response.json() )
@@ -62,18 +66,17 @@ class Search extends React.Component {
                 console.log(err);
             })
         }
-            this.setState({inputIsbn:''})
-        
     }
 
   render() {
-    const {Passed} = this.props.route.params;         
+    const {Passed} = this.props.route.params;
     return (
       <View  style={{ alignItems: 'center', justifyContent: 'center', marginTop: 100}}>
         <View >
       <Card style={{padding: 10,  }}>
-      <TextInput placeholder = {"Enter ISBN number"} 
-        onChangeText={(text) => this.setState({inputIsbn: text})}></TextInput>
+      <TextInput placeholder = {this.state.placeholder} 
+        onChangeText={(text) => this.setState({inputIsbn: text})}>
+        </TextInput>
       </Card></View>
       <View>
       <Card style={{padding: 10, margin: 10,flexDirection:'row',justifyContent:'space-evenly'}}>
