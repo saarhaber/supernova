@@ -72,8 +72,6 @@ const styles = StyleSheet.create({
   eventContent: {
     backgroundColor: 'lightgrey',
     padding: 10,
-    alignItems: 'right',
-    justifyContent: 'right',
     marginBottom: 10,
   },
   pics: {
