@@ -35,19 +35,42 @@ export default class Bookevents extends React.Component {
             renderItem={({ item }) => (
               <View>
                 <Text style={styles.eventHeader}>
-                  <Image style={styles.pics} source={{ uri: item.image.url }} />
-                  <Text style={styles.boldText}>{item.title})</Text>
-                  {'\n'}
-                  <Text style={styles.boldText}>Date: </Text>{item.start_date}
-                  {'\n'}
-                  <Text style={styles.boldText}>Location: </Text>{item.venue.venue}
+                  <View style={{ flexDirection: 'row'}}>
+                  <Image
+                      style={styles.pics}
+                      source={{ uri: item.image.url }}
+                    />
+                    <View style={{ flex: 10, flexDirection: 'column', paddingLeft: 10 }}>
+                      <Text style={styles.boldText}>
+                        {item.title
+                          .replace(/&#(\d{4};)/gi, '')
+                          .replace(/&#(\d{3};)/gi, '')}
+                      </Text>
+
+                      <Text style={styles.boldText}>Date: </Text>
+                      <Text>{item.start_date}</Text>
+                      <Text style={styles.boldText}>Location: </Text>
+                      <Text>
+                        {item.venue.venue
+                          .replace(/&#(\d{4};)/gi, '')
+                          .replace(/&#(\d{3};)/gi, '')}
+                      </Text>
+                    </View>
+
+                    
+                  </View>
                 </Text>
-                <Text style={styles.eventContent}>{item.description}</Text>
+
+                <Text style={styles.eventContent}>
+                  {item.description
+                    .replace(/&#(\d{4});/gi, '')
+                    .replace(/<\/?([a-z][a-z0-9]*)\b[^>]*>/gi, '')}
+                </Text>
               </View>
             )}
           />
-        </View>        
-        
+        </View>
+
       </View>
     );
   }
@@ -75,14 +98,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   pics: {
-    width: 75,
-    height: 75,
-    marginLeft: 5,
-    float: 'right',
+    width: 100,
+    height: 100,
+    flex: 6,
   },
   boldText: {
     fontWeight: 'bold',
-  },
+    flex: 1,
+  }
 });
-
-
