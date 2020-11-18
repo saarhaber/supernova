@@ -7,6 +7,9 @@ import Scan from './screens/Scan';
 import Bookevents from './screens/Bookevents';
 import Favorite from './screens/Favorite';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Amplify from 'aws-amplify'
+import config from './aws-exports'
+Amplify.configure(config)
 
 const Tab = createBottomTabNavigator();
 

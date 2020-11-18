@@ -1,0 +1,15 @@
+projects:
+  supernova:
+    schemaPath: amplify/backend/api/supernova/build/schema.graphql
+    includes:
+      - src/graphql/**/*.js
+    excludes:
+      - ./amplify/**
+    extensions:
+      amplify:
+        codeGenTarget: javascript
+        generatedFileName: ''
+        docsFilePath: /graphql
+extensions:
+  amplify:
+    version: 3
