@@ -16,5 +16,13 @@
         }
       }
     }
+  },
+  "auth": {
+    "supernova7ce51b2b": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false
+    }
   }
 }

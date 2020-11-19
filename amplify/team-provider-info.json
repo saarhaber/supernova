@@ -10,6 +10,11 @@
       "StackName": "amplify-supernova-dev-182508",
       "StackId": "arn:aws:cloudformation:us-east-2:059671525692:stack/amplify-supernova-dev-182508/22011c10-292c-11eb-8636-0699daa0df3a",
       "AmplifyAppId": "d1lmgv9mwa9fek"
+    },
+    "categories": {
+      "auth": {
+        "supernova7ce51b2b": {}
+      }
     }
   }
 }
