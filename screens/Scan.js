@@ -52,7 +52,7 @@ export default class BarcodeScannerExample extends React.Component {
   }
 
   handleBarCodeScanned = ({ type, data }) => {
-    if(type == '32'){
+    if(type == '32' || 'org.gs1.EAN-13'){
     this.setState({ scanned: true });
     this.setState({scanned:false});
     this.props.navigation.navigate('Search',{Passed: {data} });
