@@ -31,7 +31,7 @@ export default class Bookevents extends React.Component {
         <View>
           <FlatList
             data={this.state.eventsList}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item) => item.id.toString()}
             renderItem={({ item }) => (
               <View>
                 <View style={styles.eventHeader}>
@@ -86,16 +86,13 @@ const styles = StyleSheet.create({
     borderColor: 'black',
     borderWidth: 1,
     flexDirection: 'row',
-//  justifyContent: 'space-between',
   },
   eventHeaderText: {
     flex: 3,
-//  flexDirection: 'row',
   },
   pics: {
     width: 100,
     height: 100,
-//  flex: 1,
   },
   eventContent: {
     backgroundColor: 'lightgrey',
