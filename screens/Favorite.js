@@ -45,7 +45,7 @@ const Favorite = () => {
 
   return (
     <View style={styles.container}>
-      <TextInput
+      {/* <TextInput
         onChangeText={val => setInput('name', val)}
         style={styles.input}
         value={formState.name}
@@ -57,7 +57,7 @@ const Favorite = () => {
         value={formState.description}
         placeholder="Description"
       />
-      <Button title="Create Todo" onPress={addTodo} />
+      <Button title="Create Todo" onPress={addTodo} /> */}
       {
         todos.map((todo, index) => (
           <View key={todo.id ? todo.id : index} style={styles.todo}>
