@@ -7,6 +7,11 @@ import Scan from './screens/Scan';
 import Bookevents from './screens/Bookevents';
 import Favorite from './screens/Favorite';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Amplify from 'aws-amplify'
+import config from './aws-exports'
+import { withAuthenticator } from 'aws-amplify-react-native'
+
+Amplify.configure(config)
 import { Ionicons } from '@expo/vector-icons'; 
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { MaterialIcons } from '@expo/vector-icons'; 
@@ -74,4 +79,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default withAuthenticator(App);

@@ -2,6 +2,9 @@ import * as React from 'react';
 import { Button, View, Text, FlatList, StyleSheet, Linking, TouchableOpacity} from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import {Card} from 'react-native-shadow-cards';
+import { API, graphqlOperation } from 'aws-amplify'
+import { createTodo } from '../graphql/mutations'
+import { useEffect, useState } from 'react'
 
 class Search extends React.Component {
     constructor(props) {
@@ -12,6 +15,8 @@ class Search extends React.Component {
             reviews: [],
             book: "",
             by: 'By ',
+            author: "",
+            title: "",
             placeholder: "Enter ISBN number",
         }
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -35,7 +40,7 @@ class Search extends React.Component {
         })
           .then (response => response.json() )
           .then (res => {
-              this.setState({book: res.book})
+              this.setState({book: res.book, title:res.book.title, author:res.book.author})
           })
             .catch( err => {
                 console.log(err);
@@ -89,6 +94,10 @@ class Search extends React.Component {
       <View >
     <Text style={this.state.book ? styles.title : null}>{this.state.book.title}</Text>
     <Text style={this.state.book ? styles.title : null}>{this.state.book.author ? (this.state.by + this.state.book.author) : null} </Text>
+    {/* {this.state.title ? <Button
+          title="Add To Favorites"
+          onPress={() => this.addTodo(this.state.title, "By " + this.state.author)}
+        /> : null} */}
       </View>
       <FlatList
           data={this.state.reviews}
