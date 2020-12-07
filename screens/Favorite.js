@@ -40,8 +40,8 @@ const Favorite = () => {
       <View>
       <Text style={styles.title}>My Favorites</Text>
       </View>  
-
-      <FlatList 
+      <FlatList
+          style = {{marginBottom: 85}}
           data={books}
           keyExtractor={item => item.id}
           renderItem={({ item }) => (
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   container: { flex: 1, justifyContent: 'center', padding: 2},
   bookName: { fontSize: 20, backgroundColor: '#ce796b'},
   bookDescription: {fontSize: 20, backgroundColor: '#e7ad99'},
-  title: {textAlign: 'center', fontSize: 40, backgroundColor: '#e7ad99', marginTop: 50, padding: 10},
+  title: {textAlign: 'center', fontSize: 40, backgroundColor: '#e7ad99', padding: 10},
   picAnd: {
     //flexDirection: "row",
     justifyContent: "space-between",

@@ -91,7 +91,7 @@ class Search extends React.Component {
   render() {
     const {Passed} = this.props.route.params;
     return (
-      <View  style={{ alignItems: 'center', justifyContent: 'center', marginTop: 100}}>
+      <View  style={{ alignItems: 'center', justifyContent: 'center', marginTop: 40}}>
         <View >
       <Card style={{padding: 10,  }}>
       <TextInput placeholder = {this.state.placeholder} 
@@ -115,6 +115,7 @@ class Search extends React.Component {
         /> : null }
       </View>
       <FlatList
+          style= {{marginBottom: 50}}
           data={this.state.reviews}
           keyExtractor={item => item.source.toString()}
           renderItem={({ item }) => (
