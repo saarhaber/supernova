@@ -2,9 +2,10 @@ import * as React from 'react';
 import { Button, View, Text, FlatList, StyleSheet, Linking, TouchableOpacity} from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import {Card} from 'react-native-shadow-cards';
-import { API, graphqlOperation } from 'aws-amplify'
-import { createTodo } from '../graphql/mutations'
-import { useEffect, useState } from 'react'
+import { API, graphqlOperation  } from "aws-amplify"
+import { listBooks } from '../graphql/queries'
+import * as mutations from '../graphql/mutations';
+
 
 class Search extends React.Component {
     constructor(props) {
@@ -22,6 +23,20 @@ class Search extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     
+    async handleFavorite(){
+      try{
+      const bookDetails = {
+        name: `${this.state.title}`,
+        description: `By ${this.state.author}`
+      };
+      const newBook = await API.graphql({ query: mutations.createBook, variables: {input: bookDetails}});
+    }
+    catch (err) {
+      console.log('error creating book:', err)
+      }
+    }
+
+
     handleSubmit(scannedData) {
         if (this.state.inputIsbn!=''){
           fetch(`http://idreambooks.com/api/books/reviews.json?q=${this.state.inputIsbn}&key=${this.state.key}`, {
@@ -94,10 +109,10 @@ class Search extends React.Component {
       <View >
     <Text style={this.state.book ? styles.title : null}>{this.state.book.title}</Text>
     <Text style={this.state.book ? styles.title : null}>{this.state.book.author ? (this.state.by + this.state.book.author) : null} </Text>
-    {/* {this.state.title ? <Button
+    {this.state.title ? <Button
           title="Add To Favorites"
-          onPress={() => this.addTodo(this.state.title, "By " + this.state.author)}
-        /> : null} */}
+          onPress={() => this.handleFavorite()}
+        /> : null }
       </View>
       <FlatList
           data={this.state.reviews}

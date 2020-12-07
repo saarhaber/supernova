@@ -2,79 +2,73 @@ import React from 'react';
 
 import { useEffect, useState } from 'react'
 import {
-  View, Text, StyleSheet, TextInput, Button
+  View, Text, StyleSheet, Button, FlatList
 } from 'react-native'
-
 import { API, graphqlOperation } from 'aws-amplify'
-import { createTodo } from '../graphql/mutations'
-import { listTodos } from '../graphql/queries'
+import { deleteBook } from '../graphql/mutations'
+import { listBooks } from '../graphql/queries'
 
 const initialState = { name: '', description: '' }
 
 const Favorite = () => {
   const [formState, setFormState] = useState(initialState)
-  const [todos, setTodos] = useState([])
+  const [books, setBooks] = useState([])
 
   useEffect(() => {
-    fetchTodos()
+    fetchBooks()
   }, [])
 
   function setInput(key, value) {
     setFormState({ ...formState, [key]: value })
   }
 
-  async function fetchTodos() {
+  async function fetchBooks() {
     try {
-      const todoData = await API.graphql(graphqlOperation(listTodos))
-      const todos = todoData.data.listTodos.items
-      setTodos(todos)
-    } catch (err) { console.log('error fetching todos') }
+      const bookData = await API.graphql(graphqlOperation(listBooks))
+      const books = bookData.data.listBooks.items
+      setBooks(books)
+    } catch (err) { console.log('error fetching books') }
   }
 
-  async function addTodo() {
-    try {
-      const todo = { ...formState }
-      setTodos([...todos, todo])
-      setFormState(initialState)
-      await API.graphql(graphqlOperation(createTodo, {input: todo}))
-    } catch (err) {
-      console.log('error creating todo:', err)
-    }
+  async function deleteFunction(id){
+    await API.graphql(graphqlOperation(deleteBook, {input: {id}}))
+    fetchBooks()
   }
-
-
+  
   return (
-    <View style={styles.container}>
-      {/* <TextInput
-        onChangeText={val => setInput('name', val)}
-        style={styles.input}
-        value={formState.name}
-        placeholder="Name"
+    <View>
+      <View>
+      <Text style={styles.title}>My Favorites</Text>
+      </View>  
+
+      <FlatList 
+          data={books}
+          keyExtractor={item => item.id}
+          renderItem={({ item }) => (
+            <View style={styles.container}>
+              <Text style={styles.bookName}>{item.name}</Text>
+              <View style={styles.picAnd}>
+              <Text style={styles.bookDescription}>{item.description}</Text>
+              <Button title="Delete Book" onPress={()=>deleteFunction(item.id)}/>
+              </View>
+            </View>
+          )}
       />
-      <TextInput
-        onChangeText={val => setInput('description', val)}
-        style={styles.input}
-        value={formState.description}
-        placeholder="Description"
-      />
-      <Button title="Create Todo" onPress={addTodo} /> */}
-      {
-        todos.map((todo, index) => (
-          <View key={todo.id ? todo.id : index} style={styles.todo}>
-            <Text style={styles.todoName}>{todo.name}</Text>
-            <Text>{todo.description}</Text>
-          </View>
-        ))
-      }
     </View>
+
   )
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center', padding: 20 },
-  todo: {  marginBottom: 15 },
-  input: { height: 50, backgroundColor: '#ddd', marginBottom: 10, padding: 8 },
-  todoName: { fontSize: 18 }
+  container: { flex: 1, justifyContent: 'center', padding: 2},
+  bookName: { fontSize: 20, backgroundColor: '#ce796b'},
+  bookDescription: {fontSize: 20, backgroundColor: '#e7ad99'},
+  title: {textAlign: 'center', fontSize: 40, backgroundColor: '#e7ad99', marginTop: 50, padding: 10},
+  picAnd: {
+    //flexDirection: "row",
+    justifyContent: "space-between",
+    backgroundColor: '#e7ad99',
+  }
 })
 
 export default Favorite;

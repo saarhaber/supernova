@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { Button, View, Text, Image, Linking, TouchableOpacity, FlatList, StyleSheet} from 'react-native';
 import {Card} from 'react-native-shadow-cards';
+import { API  } from "aws-amplify"
+import * as mutations from '../graphql/mutations';
 
 class Home extends React.Component {
   constructor(props) {
@@ -10,6 +12,19 @@ class Home extends React.Component {
         keyGG: "AIzaSyCJkIgTYX0-lGVkN53U-vYgkqrKkuWoGFU",
         best: ''
     }
+}
+
+async handleFavorite(item){
+  try{
+  const bookDetails = {
+    name: item.title,
+    description: `By ${item.author}`
+  };
+  const newBook = await API.graphql({ query: mutations.createBook, variables: {input: bookDetails}});
+}
+catch (err) {
+  console.log('error creating book:', err)
+  }
 }
 
   componentDidMount() {
@@ -40,9 +55,12 @@ class Home extends React.Component {
           <Text style={styles.source}>{item.rank}. {item.title}{'\n'}by {item.author}</Text>
             </TouchableOpacity>
             <View style={styles.picAnd}>
-            <Image style={styles.pic} source={{uri: item.book_image}} />
-            <Text style={styles.snippet}>{item.description}</Text>
+              <Image style={styles.pic} source={{uri: item.book_image}} />
+              <Text style={styles.snippet}>{item.description}</Text>
             </View>
+            <View>
+            <Button title="Add To Favorites" onPress={() => this.handleFavorite(item)}/> 
+          </View>
           </Card>
           )}
       />
