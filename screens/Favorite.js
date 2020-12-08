@@ -39,6 +39,7 @@ const Favorite = () => {
     <View>
       <View>
       <Text style={styles.title}>My Favorites</Text>
+      <Button title="Refreash List" onPress={()=>fetchBooks()}/>
       </View>  
       <FlatList
           style = {{marginBottom: 85}}
