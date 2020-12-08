@@ -76,4 +76,8 @@ const App = () => {
   );
 };
 
-export default withAuthenticator(App);
+export default withAuthenticator(App, {
+  // Render a sign out button once logged in
+  includeGreetings: true
+  }
+);

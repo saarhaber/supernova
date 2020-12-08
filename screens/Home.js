@@ -42,7 +42,7 @@ catch (err) {
     {
     return (
       <View>
-      <View style={{marginTop: 60, alignItems: 'center', justifyContent: 'center' }}>
+      <View style={{marginTop: 10, alignItems: 'center', marginRight: 10}}>
         <Text style={styles.head}>New York Times Best Sellers List</Text>
       </View>
       <View>
@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
   pic: {
     width: 60,
     height: 100,
+    margin: 1
   },
   picAnd: {
     flexDirection: "row",
@@ -85,12 +86,13 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: '#e7ad99',
     marginTop: 10,
-    padding: 5
+    padding: 2
   },
   snippet: {
     backgroundColor: '#ce796b',
-    marginRight: 70,
-    marginLeft: 5,
+    marginRight: 62,
+    padding: 5,
+    margin: 1,
     fontSize: 15
   },
   title: {
@@ -101,8 +103,8 @@ const styles = StyleSheet.create({
     fontSize: 17,
   },
   list: {
-    marginBottom: 180,
-    marginLeft: 18,
+    marginBottom: 80,
+    marginLeft: 15,
   }
 });
 
