@@ -38,17 +38,37 @@ export default class Bookevents extends React.Component {
       stateCode = '3431';
       this.setState({ userState: 'Alabama' });
     }
+    else if (state=='AK'){
+      stateCode = '1790';
+      this.setState({ userState: 'Alaska' });
+    }
+    else if (state=='AZ'){
+      stateCode = '10385';
+      this.setState({ userState: 'Arizona' });
+    }
+    else if (state=='AR'){
+      stateCode = '15115';
+      this.setState({ userState: 'Arkansas' });
+    }
     else if (state=='CA'){
-      stateCode= '1790,10385,15115,15120,19137,20005,20180';
+      stateCode = '1790,10385,15115,15120,19137,20005,20180';
       this.setState({ userState: 'California' });
     }
+    else if (state=='CO'){
+      stateCode = '15120';
+      this.setState({ userState: 'Colorado' });
+    }
     else if (state=='CT'){
-      stateCode='3632,9303,14181,17237';
+      stateCode = '3632,9303,14181,17237';
       this.setState({ userState: 'Connecticut' });
     }
     else if (state=='DC'){
       stateCode = '16305';
       this.setState({ userState: 'District of Columbia' });
+    }
+    else if (state=='DE'){
+      stateCode = '19137';
+      this.setState({ userState: 'Delaware' });
     }
     else if (state=='FL'){
       stateCode = '10639,11231';
@@ -58,13 +78,25 @@ export default class Bookevents extends React.Component {
       stateCode = '1724,10469,17132';
       this.setState({ userState: 'Georgia' });
     }
+    else if (state=='HI'){
+      stateCode = '1790';
+      this.setState({ userState: 'Hawaii' });
+    }
     else if (state=='IA'){
       stateCode = '11000,11895';
       this.setState({ userState: 'Iowa' });
     }
+    else if (state=='ID'){
+      stateCode = '10385';
+      this.setState({ userState: 'Idaho' });
+    }
     else if (state=='IL'){
       stateCode = '10449,12942,17162';
       this.setState({ userState: 'Illinois' });
+    }
+    else if (state=='IN'){
+      stateCode = '15115';
+      this.setState({ userState: 'Indiana' });
     }
     else if (state=='KS'){
       stateCode = '11329,15899';
@@ -73,6 +105,10 @@ export default class Bookevents extends React.Component {
     else if (state=='KY'){
       stateCode = '11485,15108';
       this.setState({ userState: 'Kentucky' });
+    }
+    else if (state=='LA'){
+      stateCode = '15120';
+      this.setState({ userState: 'Louisiana' });
     }
     else if (state=='MA'){
       stateCode = '3270,17120';
@@ -98,6 +134,14 @@ export default class Bookevents extends React.Component {
       stateCode = '6855';
       this.setState({ userState: 'Missouri' });
     }
+    else if (state=='MS'){
+      stateCode = '19137';
+      this.setState({ userState: 'Mississippi' });
+    }
+    else if (state=='MT'){
+      stateCode = '1790';
+      this.setState({ userState: 'Montana' });
+    }
     else if (state=='NC'){
       stateCode = '2064,16199';
       this.setState({ userState: 'North Carolina' });
@@ -106,9 +150,21 @@ export default class Bookevents extends React.Component {
       stateCode = '13199';
       this.setState({ userState: 'North Dakota' });
     }
+    else if (state=='NE'){
+      stateCode = '10385';
+      this.setState({ userState: 'Nebraska' });
+    }
+    else if (state=='NH'){
+      stateCode = '15115';
+      this.setState({ userState: 'New Hampshire' });
+    }
     else if (state=='NJ'){
       stateCode = '1843,2123,14180';
       this.setState({ userState: 'New Jersey' });
+    }
+    else if (state=='NM'){
+      stateCode = '15120';
+      this.setState({ userState: 'New Mexico' });
     }
     else if (state=='NV'){
       stateCode = '3483';
@@ -142,6 +198,10 @@ export default class Bookevents extends React.Component {
       stateCode = '13407,15889,15890';
       this.setState({ userState: 'South Carolina' });
     }
+    else if (state=='SD'){
+      stateCode = '19137';
+      this.setState({ userState: 'South Dakota' });
+    }
     else if (state=='TN'){
       stateCode = '17123,17127,20333';
       this.setState({ userState: 'Tennessee' });
@@ -158,13 +218,25 @@ export default class Bookevents extends React.Component {
       stateCode = '18969,20129';
       this.setState({ userState: 'Virginia' });
     }
+    else if (state=='VT'){
+      stateCode = '1790';
+      this.setState({ userState: 'Vermont' });
+    }
     else if (state=='WA'){
       stateCode = '10620';
       this.setState({ userState: 'Washington' });
     }
+    else if (state=='WV'){
+      stateCode = '10385';
+      this.setState({ userState: 'West Virginia' });
+    }
     else if (state=='WI'){
       stateCode = '16647,17220,17234';
       this.setState({ userState: 'Wisconsin' });
+    }
+    else if (state=='WY'){
+      stateCode = '15115';
+      this.setState({ userState: 'Wyoming' });
     }
     else if (state=='ONLINE'){
       stateCode = '3411';
