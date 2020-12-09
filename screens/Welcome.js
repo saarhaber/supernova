@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, View, StyleSheet, Image, ImageBackground } from 'react-native';
+import { Text, View, StyleSheet, ImageBackground } from 'react-native';
 
 export default class Welcome extends React.Component {
   render() {

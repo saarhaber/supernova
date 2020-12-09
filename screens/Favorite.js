@@ -66,7 +66,6 @@ const styles = StyleSheet.create({
   bookDescription: {fontSize: 20, backgroundColor: '#e7ad99'},
   title: {textAlign: 'center', fontSize: 40, backgroundColor: '#e7ad99', padding: 10},
   picAnd: {
-    //flexDirection: "row",
     justifyContent: "space-between",
     backgroundColor: '#e7ad99',
   }

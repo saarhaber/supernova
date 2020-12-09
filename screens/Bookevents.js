@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View, Button, TextInput, ScrollView, FlatList, Alert } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View, TextInput, FlatList } from 'react-native';
 import * as Location from 'expo-location';
 
 export default class Bookevents extends React.Component {
@@ -291,6 +291,7 @@ export default class Bookevents extends React.Component {
 
         <View>
           <FlatList
+            style={{marginBottom: 250}}
             data={this.state.eventsList}
             extraData={this.state.showEvents}
             keyExtractor={(item) => item.id.toString()}

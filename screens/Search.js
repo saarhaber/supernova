@@ -80,7 +80,7 @@ class Search extends React.Component {
         })
           .then (response => response.json() )
           .then (res => {
-              this.setState({book: res.book})
+              this.setState({book: res.book, title:res.book.title, author:res.book.author})
           })
             .catch( err => {
                 console.log(err);
