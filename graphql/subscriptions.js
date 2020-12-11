@@ -7,6 +7,8 @@ export const onCreateBook = /* GraphQL */ `
       id
       name
       description
+      link
+      image
       createdAt
       updatedAt
     }
@@ -18,6 +20,8 @@ export const onUpdateBook = /* GraphQL */ `
       id
       name
       description
+      link
+      image
       createdAt
       updatedAt
     }
@@ -29,6 +33,8 @@ export const onDeleteBook = /* GraphQL */ `
       id
       name
       description
+      link
+      image
       createdAt
       updatedAt
     }

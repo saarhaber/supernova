@@ -18,7 +18,9 @@ async handleFavorite(item){
   try{
   const bookDetails = {
     name: item.title,
-    description: `By ${item.author}`
+    description: `By ${item.author}`,
+    link: item.amazon_product_url,
+    image: item.book_image,
   };
   const newBook = await API.graphql({ query: mutations.createBook, variables: {input: bookDetails}});
 }

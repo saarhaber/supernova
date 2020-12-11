@@ -7,6 +7,8 @@ export const getBook = /* GraphQL */ `
       id
       name
       description
+      link
+      image
       createdAt
       updatedAt
     }
@@ -23,6 +25,8 @@ export const listBooks = /* GraphQL */ `
         id
         name
         description
+        link
+        image
         createdAt
         updatedAt
       }
