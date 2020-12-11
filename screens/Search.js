@@ -27,8 +27,10 @@ class Search extends React.Component {
     async handleFavorite(){
       try{
       const bookDetails = {
-        name: `${this.state.title}`,
-        description: `By ${this.state.author}`
+        name: this.state.title,
+        description: `By ${this.state.author}`,
+        link: this.state.buyLink,
+        image: this.state.imgLink,
       };
       const newBook = await API.graphql({ query: mutations.createBook, variables: {input: bookDetails}});
     }
@@ -197,8 +199,8 @@ const styles = StyleSheet.create({
   title: {
     justifyContent: "space-between",
     padding: 1,
-    fontSize: 20,
-    marginRight: 50
+    fontSize: 19,
+    marginRight: 55
   },
   source: {
     fontSize: 17,
