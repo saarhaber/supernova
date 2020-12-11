@@ -10,7 +10,7 @@ class Home extends React.Component {
     this.state = {
         keyNYT:"orP8vrQNvABHG8kLlAsk4cdfgOJ6A46p",
         keyGG: "AIzaSyCJkIgTYX0-lGVkN53U-vYgkqrKkuWoGFU",
-        best: ''
+        best: '',
     }
 }
 
@@ -32,7 +32,6 @@ catch (err) {
     {    method: 'get'  })
     .then(response => response.json())
     .then (json => this.setState({best : json.results}))
-    .then (console.log(this.state.best))
     .catch( err => {
         console.log(err);
     })
@@ -51,13 +50,14 @@ catch (err) {
           keyExtractor={item => item.rank.toString()}
           renderItem={({ item }) => (
           <Card style={styles.card}>
-            <TouchableOpacity  style={styles.title}>
           <Text style={styles.source}>{item.rank}. {item.title}{'\n'}by {item.author}</Text>
-            </TouchableOpacity>
             <View style={styles.picAnd}>
               <Image style={styles.pic} source={{uri: item.book_image}} />
               <Text style={styles.snippet}>{item.description}</Text>
             </View>
+            <TouchableOpacity style={styles.title} onPress={()=>{Linking.openURL(item.amazon_product_url)}}>
+              <Text style={styles.more}>Click to buy on Amazon!</Text>
+            </TouchableOpacity>
             <View>
             <Button title="Add To Favorites" onPress={() => this.handleFavorite(item)}/> 
           </View>
@@ -105,6 +105,10 @@ const styles = StyleSheet.create({
   list: {
     marginBottom: 80,
     marginLeft: 15,
+  },
+  more: {
+    fontSize: 13,
+    fontStyle: "italic",
   }
 });
 
