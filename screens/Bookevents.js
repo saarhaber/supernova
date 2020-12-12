@@ -1,14 +1,17 @@
 import * as React from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity, View, TextInput, FlatList } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, Linking, View, TextInput, FlatList } from 'react-native';
 import * as Location from 'expo-location';
+import Geocoder from 'react-native-geocoding';
 
 export default class Bookevents extends React.Component {
   constructor(props) {
     super(props);
+    Geocoder.init("AIzaSyCJkIgTYX0-lGVkN53U-vYgkqrKkuWoGFU");
     this.state = {
       eventsList: [],
       showEvents: [false, false, false, false, false, false, false, false, false, false],
       userState: 'Online',
+      stateLetter:'',
       userLoc: {},
       permissionGranted: false,
       errorMessage: 'unchanged',
@@ -27,218 +30,215 @@ export default class Bookevents extends React.Component {
     this.setState({ eventsList: data.events });
   };
 
-  stateSelect = (state) => {
+  stateSelect = (stateLetter) => {
+
     let stateCode = 'code';
 
-    if (state=='GPS'){
-      state = this.state.userLoc.toString();
-    }
-
-    if (state=='AL'){
+    if (stateLetter=='AL'){
       stateCode = '3431';
       this.setState({ userState: 'Alabama' });
     }
-    else if (state=='AK'){
+    else if (stateLetter=='AK'){
       stateCode = '1790';
       this.setState({ userState: 'Alaska' });
     }
-    else if (state=='AZ'){
+    else if (stateLetter=='AZ'){
       stateCode = '10385';
       this.setState({ userState: 'Arizona' });
     }
-    else if (state=='AR'){
+    else if (stateLetter=='AR'){
       stateCode = '15115';
       this.setState({ userState: 'Arkansas' });
     }
-    else if (state=='CA'){
+    else if (stateLetter=='CA'){
       stateCode = '1790,10385,15115,15120,19137,20005,20180';
       this.setState({ userState: 'California' });
     }
-    else if (state=='CO'){
+    else if (stateLetter=='CO'){
       stateCode = '15120';
       this.setState({ userState: 'Colorado' });
     }
-    else if (state=='CT'){
+    else if (stateLetter=='CT'){
       stateCode = '3632,9303,14181,17237';
       this.setState({ userState: 'Connecticut' });
     }
-    else if (state=='DC'){
+    else if (stateLetter=='DC'){
       stateCode = '16305';
       this.setState({ userState: 'District of Columbia' });
     }
-    else if (state=='DE'){
+    else if (stateLetter=='DE'){
       stateCode = '19137';
       this.setState({ userState: 'Delaware' });
     }
-    else if (state=='FL'){
+    else if (stateLetter=='FL'){
       stateCode = '10639,11231';
       this.setState({ userState: 'Florida' });
     }
-    else if (state=='GA'){
+    else if (stateLetter=='GA'){
       stateCode = '1724,10469,17132';
       this.setState({ userState: 'Georgia' });
     }
-    else if (state=='HI'){
+    else if (stateLetter=='HI'){
       stateCode = '1790';
       this.setState({ userState: 'Hawaii' });
     }
-    else if (state=='IA'){
+    else if (stateLetter=='IA'){
       stateCode = '11000,11895';
       this.setState({ userState: 'Iowa' });
     }
-    else if (state=='ID'){
+    else if (stateLetter=='ID'){
       stateCode = '10385';
       this.setState({ userState: 'Idaho' });
     }
-    else if (state=='IL'){
+    else if (stateLetter=='IL'){
       stateCode = '10449,12942,17162';
       this.setState({ userState: 'Illinois' });
     }
-    else if (state=='IN'){
+    else if (stateLetter=='IN'){
       stateCode = '15115';
       this.setState({ userState: 'Indiana' });
     }
-    else if (state=='KS'){
+    else if (stateLetter=='KS'){
       stateCode = '11329,15899';
       this.setState({ userState: 'Kansas' });
     }
-    else if (state=='KY'){
+    else if (stateLetter=='KY'){
       stateCode = '11485,15108';
       this.setState({ userState: 'Kentucky' });
     }
-    else if (state=='LA'){
+    else if (stateLetter=='LA'){
       stateCode = '15120';
       this.setState({ userState: 'Louisiana' });
     }
-    else if (state=='MA'){
+    else if (stateLetter=='MA'){
       stateCode = '3270,17120';
       this.setState({ userState: 'Massachusetts' });
     }
-    else if (state=='MD'){
+    else if (stateLetter=='MD'){
       stateCode = '11177,16467';
       this.setState({ userState: 'Maryland' });
     }
-    else if (state=='ME'){
+    else if (stateLetter=='ME'){
       stateCode = '19220';
       this.setState({ userState: 'Maine' });
     }
-    else if (state=='MI'){
+    else if (stateLetter=='MI'){
       stateCode = '16784';
       this.setState({ userState: 'Michigan' });
     }
-    else if (state=='MN'){
+    else if (stateLetter=='MN'){
       stateCode = '3407,11011';
       this.setState({ userState: 'Minnesota' });
     }
-    else if (state=='MO'){
+    else if (stateLetter=='MO'){
       stateCode = '6855';
       this.setState({ userState: 'Missouri' });
     }
-    else if (state=='MS'){
+    else if (stateLetter=='MS'){
       stateCode = '19137';
       this.setState({ userState: 'Mississippi' });
     }
-    else if (state=='MT'){
+    else if (stateLetter=='MT'){
       stateCode = '1790';
       this.setState({ userState: 'Montana' });
     }
-    else if (state=='NC'){
+    else if (stateLetter=='NC'){
       stateCode = '2064,16199';
       this.setState({ userState: 'North Carolina' });
     }
-    else if (state=='ND'){
+    else if (stateLetter=='ND'){
       stateCode = '13199';
       this.setState({ userState: 'North Dakota' });
     }
-    else if (state=='NE'){
+    else if (stateLetter=='NE'){
       stateCode = '10385';
       this.setState({ userState: 'Nebraska' });
     }
-    else if (state=='NH'){
+    else if (stateLetter=='NH'){
       stateCode = '15115';
       this.setState({ userState: 'New Hampshire' });
     }
-    else if (state=='NJ'){
+    else if (stateLetter=='NJ'){
       stateCode = '1843,2123,14180';
       this.setState({ userState: 'New Jersey' });
     }
-    else if (state=='NM'){
+    else if (stateLetter=='NM'){
       stateCode = '15120';
       this.setState({ userState: 'New Mexico' });
     }
-    else if (state=='NV'){
+    else if (stateLetter=='NV'){
       stateCode = '3483';
       this.setState({ userState: 'Nevada' });
     }
-    else if (state=='NY'||state=='gps'){
+    else if (stateLetter=='NY'){
       stateCode = '2745,3508,9508,14179,16767,16797';
       this.setState({ userState: 'New York' });
     }
-    else if (state=='OH'){
+    else if (stateLetter=='OH'){
       stateCode = '16106';
       this.setState({ userState: 'Ohio' });
     }
-    else if (state=='OK'){
+    else if (stateLetter=='OK'){
       stateCode = '16193';
       this.setState({ userState: 'Oklahoma' });
     }
-    else if (state=='OR'){
+    else if (stateLetter=='OR'){
        stateCode = '10997';
        this.setState({ userState: 'Oregon' });
     }
-    else if (state=='PA'){
+    else if (stateLetter=='PA'){
       stateCode = '13489,15636,19949';
       this.setState({ userState: 'Pennsylvania' });
     }
-    else if (state=='RI'){
+    else if (stateLetter=='RI'){
       stateCode = '13407,15889,15890';
       this.setState({ userState: 'Rhode Island' });
     }
-    else if (state=='SC'){
+    else if (stateLetter=='SC'){
       stateCode = '13407,15889,15890';
       this.setState({ userState: 'South Carolina' });
     }
-    else if (state=='SD'){
+    else if (stateLetter=='SD'){
       stateCode = '19137';
       this.setState({ userState: 'South Dakota' });
     }
-    else if (state=='TN'){
+    else if (stateLetter=='TN'){
       stateCode = '17123,17127,20333';
       this.setState({ userState: 'Tennessee' });
     }
-    else if (state=='TX'){
+    else if (stateLetter=='TX'){
       stateCode = '2536,14177,14178,16915,18950,19960';
       this.setState({ userState: 'Texas' });
     }
-    else if (state=='UT'){
+    else if (stateLetter=='UT'){
       stateCode = '15896';
       this.setState({ userState: 'Utah' });
     }
-    else if (state=='VA'){
+    else if (stateLetter=='VA'){
       stateCode = '18969,20129';
       this.setState({ userState: 'Virginia' });
     }
-    else if (state=='VT'){
+    else if (stateLetter=='VT'){
       stateCode = '1790';
       this.setState({ userState: 'Vermont' });
     }
-    else if (state=='WA'){
+    else if (stateLetter=='WA'){
       stateCode = '10620';
       this.setState({ userState: 'Washington' });
     }
-    else if (state=='WV'){
+    else if (stateLetter=='WV'){
       stateCode = '10385';
       this.setState({ userState: 'West Virginia' });
     }
-    else if (state=='WI'){
+    else if (stateLetter=='WI'){
       stateCode = '16647,17220,17234';
       this.setState({ userState: 'Wisconsin' });
     }
-    else if (state=='WY'){
+    else if (stateLetter=='WY'){
       stateCode = '15115';
       this.setState({ userState: 'Wyoming' });
     }
-    else if (state=='ONLINE'){
+    else if (stateLetter=='ONLINE'){
       stateCode = '3411';
       this.setState({ userState: 'Online' });
     }
@@ -256,9 +256,17 @@ export default class Bookevents extends React.Component {
     else {
       this.setState({ permissionGranted: true });
       this.setState({ errorMessage: 'Permission to access location was granted' });
-      this.stateSelect('gps');
       let location = await Location.getCurrentPositionAsync({});
       this.setState({ userLoc: location });
+      let lat = this.state.userLoc.coords.latitude
+      let long = this.state.userLoc.coords.longitude
+      Geocoder.from({
+        latitude : lat,
+        longitude : long
+      }).then(json => {
+        this.stateSelect(json.results[0].address_components[4].short_name)
+      })
+        .catch(error => console.warn(error));
     }
   };
 
@@ -327,12 +335,18 @@ export default class Bookevents extends React.Component {
                   
                 </View>
 
-                {this.state.showEvents[this.state.eventsList.indexOf(item)] && <Text style={styles.eventContent}>
+                {this.state.showEvents[this.state.eventsList.indexOf(item)] &&
+                <Text style={styles.eventContent}>
+                   
                   {item.description
                     .replace(/&#(\d{4});/gi, '')
                     .replace(/<\/?([a-z][a-z0-9]*)\b[^>]*>/gi, '')}
+                    {'\n'}
+                    <TouchableOpacity onPress={()=>{Linking.openURL(item.url)}}>
+                        <Text style={styles.boldText}>Click here for more info! </Text>
+                    </TouchableOpacity>
                 </Text>}
-
+                
                 </TouchableOpacity>
 
               </View>
@@ -347,6 +361,7 @@ export default class Bookevents extends React.Component {
 
 const styles = StyleSheet.create({
   pageHeader: {
+    backgroundColor: '#ce796b',
     textAlign: 'center',
     justifyContent: 'center',
     padding: 15,
@@ -370,13 +385,12 @@ const styles = StyleSheet.create({
   eventContent: {
     backgroundColor: 'white',
     padding: 10,
-    marginBottom: 5,
   },
   boldText: {
     fontWeight: 'bold',
   },
   locationBar: {
-    backgroundColor: 'lightgray',
+    backgroundColor: 'lightgrey',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 3,
@@ -401,7 +415,7 @@ const styles = StyleSheet.create({
     margin: 2,
   },
   infoText: {
-    backgroundColor: 'lightgray',
+    backgroundColor: 'lightgrey',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 3,
