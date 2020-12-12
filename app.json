@@ -17,13 +17,16 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.saarhaber.supernova",
+      "buildNumber": "1.0.0"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "android": {
-      "package": "supernova.apk"
+      "package": "com.saarhaber.supernova",
+      "versionCode": 1
     }
   }
 }
