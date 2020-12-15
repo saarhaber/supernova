@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, Linking, View, TextInput, FlatList } from 'react-native';
 import * as Location from 'expo-location';
 import Geocoder from 'react-native-geocoding';
+import Dialog, { SlideAnimation, DialogFooter, DialogButton, DialogContent } from 'react-native-popup-dialog';
 
 export default class Bookevents extends React.Component {
   constructor(props) {
@@ -15,6 +16,7 @@ export default class Bookevents extends React.Component {
       userLoc: {},
       permissionGranted: false,
       errorMessage: 'unchanged',
+      visible: false,
     };
   }
 
@@ -249,6 +251,7 @@ export default class Bookevents extends React.Component {
   };
 
   PressGPS = async () => {
+    this.setState({ visible: false });
     let { status } = await Location.requestPermissionsAsync();
     if (status !== 'granted') {
       this.setState({ errorMessage: 'Permission to access location was denied' });
@@ -286,15 +289,42 @@ export default class Bookevents extends React.Component {
             onChangeText={(value) => this.stateSelect(value.toUpperCase())}
           />
           <Text> or </Text>
-          <TouchableOpacity onPress={() => this.PressGPS()}>
+          <TouchableOpacity onPress={() =>
+          this.setState({ visible: true })
+           }>
             <Text style={styles.press}> Use GPS </Text>
           </TouchableOpacity>
+          <Dialog
+                visible={this.state.visible}
+                onTouchOutside={() => {
+                  this.setState({ visible: false });
+                }}
+                dialogAnimation={new SlideAnimation({
+                  slideFrom: 'bottom',
+                })}
+                footer={
+                  <DialogFooter>
+                    <DialogButton
+                      text="CANCEL"
+                      onPress={() => { this.setState({ visible: false })}}
+                    />
+                    <DialogButton
+                      text="OK"
+                      onPress={() => {this.PressGPS()}}
+                    />
+                  </DialogFooter>
+                }
+              >
+                <DialogContent>
+                  {<Text >{'\n'}This app collects location data to enable the Book Signing feature that displays the events in your state even when the app is closed or not in use. Once the events are displayed (if any) you may turn off location.</Text>}
+                </DialogContent>
+              </Dialog>
         </View>
         
         <View style={styles.infoText}>
           {this.state.userState == "Online" 
-          ? <Text >Here are upcoming online events!</Text>
-          : <Text >Here are upcoming events in {this.state.userState}!</Text>}
+          ? <Text>Here are upcoming online events!</Text>
+          : <Text>Here are upcoming events in {this.state.userState}!</Text>}
         </View>
 
         <View>
