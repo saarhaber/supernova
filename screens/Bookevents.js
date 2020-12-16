@@ -1,22 +1,14 @@
 import * as React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, Linking, View, TextInput, FlatList } from 'react-native';
-import * as Location from 'expo-location';
-import Geocoder from 'react-native-geocoding';
-import Dialog, { SlideAnimation, DialogFooter, DialogButton, DialogContent } from 'react-native-popup-dialog';
 
 export default class Bookevents extends React.Component {
   constructor(props) {
     super(props);
-    Geocoder.init("AIzaSyCJkIgTYX0-lGVkN53U-vYgkqrKkuWoGFU");
     this.state = {
       eventsList: [],
       showEvents: [false, false, false, false, false, false, false, false, false, false],
       userState: 'Online',
-      stateLetter:'',
-      userLoc: {},
-      permissionGranted: false,
-      errorMessage: 'unchanged',
-      visible: false,
+      stateLetter:''
     };
   }
 
@@ -250,37 +242,12 @@ export default class Bookevents extends React.Component {
     }
   };
 
-  PressGPS = async () => {
-    this.setState({ visible: false });
-    let { status } = await Location.requestPermissionsAsync();
-    if (status !== 'granted') {
-      this.setState({ errorMessage: 'Permission to access location was denied' });
-    } 
-    else {
-      this.setState({ permissionGranted: true });
-      this.setState({ errorMessage: 'Permission to access location was granted' });
-      let location = await Location.getCurrentPositionAsync({});
-      this.setState({ userLoc: location });
-      let lat = this.state.userLoc.coords.latitude
-      let long = this.state.userLoc.coords.longitude
-      Geocoder.from({
-        latitude : lat,
-        longitude : long
-      }).then(json => {
-        this.stateSelect(json.results[0].address_components[4].short_name)
-      })
-        .catch(error => console.warn(error));
-    }
-  };
-
   render() {
     return (
       <View>
-
         <View>
           <Text style={styles.pageHeader}>Upcoming Events!</Text>
         </View>
-
         <View style={styles.locationBar}>
           <Text>Enter your state:</Text>
           <TextInput
@@ -288,37 +255,6 @@ export default class Bookevents extends React.Component {
             placeholder="e.g. NY"
             onChangeText={(value) => this.stateSelect(value.toUpperCase())}
           />
-          <Text> or </Text>
-          <TouchableOpacity onPress={() =>
-          this.setState({ visible: true })
-           }>
-            <Text style={styles.press}> Use GPS </Text>
-          </TouchableOpacity>
-          <Dialog
-                visible={this.state.visible}
-                onTouchOutside={() => {
-                  this.setState({ visible: false });
-                }}
-                dialogAnimation={new SlideAnimation({
-                  slideFrom: 'bottom',
-                })}
-                footer={
-                  <DialogFooter>
-                    <DialogButton
-                      text="CANCEL"
-                      onPress={() => { this.setState({ visible: false })}}
-                    />
-                    <DialogButton
-                      text="OK"
-                      onPress={() => {this.PressGPS()}}
-                    />
-                  </DialogFooter>
-                }
-              >
-                <DialogContent>
-                  {<Text >{'\n'}This app collects location data to enable the Book Signing feature that displays the events in your state even when the app is closed or not in use. Once the events are displayed (if any) you may turn off location.</Text>}
-                </DialogContent>
-              </Dialog>
         </View>
         
         <View style={styles.infoText}>
@@ -370,7 +306,10 @@ export default class Bookevents extends React.Component {
                    
                   {item.description
                     .replace(/&#(\d{4});/gi, '')
-                    .replace(/<\/?([a-z][a-z0-9]*)\b[^>]*>/gi, '')}
+                    .replace(/<\/?([a-z][a-z0-9]*)\b[^>]*>/gi, '')
+                    .replace("&nbsp;", '')
+                    .replace("&amp;", '')
+                    }
                     {'\n'}
                     <TouchableOpacity onPress={()=>{Linking.openURL(item.url)}}>
                         <Text style={styles.boldText}>Click here for more info! </Text>
