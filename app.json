@@ -26,7 +26,7 @@
     },
     "android": {
       "package": "com.saarhaber.supernova",
-      "versionCode": 5
+      "versionCode": 6
     }
   }
 }
