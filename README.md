@@ -63,13 +63,20 @@ Targeting API 36 (Android 16) satisfies Google Play's current target-API-level r
    }
    ```
 
-2. **API keys (optional):** NYT and iDreamBooks keys default to the historical project
-   keys. Override them without touching code in `~/.gradle/gradle.properties`:
+2. **API keys (required for the Best Sellers screen):** keys are never committed to the
+   repository. Supply them in `~/.gradle/gradle.properties` (or the environment variables
+   `SUPERNOVA_NYT_API_KEY` / `SUPERNOVA_IDREAMBOOKS_API_KEY`, e.g. as CI secrets):
 
    ```properties
    supernova.nytApiKey=YOUR_NYT_KEY
    supernova.idreamBooksApiKey=YOUR_IDREAMBOOKS_KEY
    ```
+
+   > ⚠️ The keys that shipped inside earlier versions of this repository (an NYT key, an
+   > iDreamBooks key, and a Google API key in the old `screens/Home.js`) are still visible
+   > in git history and must be treated as compromised: rotate or delete them in their
+   > respective consoles and restrict any replacement Google keys by app package +
+   > SHA-1 fingerprint.
 
 3. **Build:**
 

@@ -19,17 +19,17 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        // Override in ~/.gradle/gradle.properties or CI secrets for release builds.
-        buildConfigField(
-            "String",
-            "NYT_API_KEY",
-            "\"${project.findProperty("supernova.nytApiKey") ?: "orP8vrQNvABHG8kLlAsk4cdfgOJ6A46p"}\""
-        )
-        buildConfigField(
-            "String",
-            "IDREAMBOOKS_API_KEY",
-            "\"${project.findProperty("supernova.idreamBooksApiKey") ?: "9d36aa03f3dab521f27f0c7fc737698dbe01df70"}\""
-        )
+        // Keys are never committed: supply them via ~/.gradle/gradle.properties
+        // (supernova.nytApiKey / supernova.idreamBooksApiKey), environment
+        // variables, or CI secrets. See README "API keys".
+        val nytApiKey = project.findProperty("supernova.nytApiKey") as String?
+            ?: System.getenv("SUPERNOVA_NYT_API_KEY")
+            ?: ""
+        val iDreamBooksApiKey = project.findProperty("supernova.idreamBooksApiKey") as String?
+            ?: System.getenv("SUPERNOVA_IDREAMBOOKS_API_KEY")
+            ?: ""
+        buildConfigField("String", "NYT_API_KEY", "\"$nytApiKey\"")
+        buildConfigField("String", "IDREAMBOOKS_API_KEY", "\"$iDreamBooksApiKey\"")
     }
 
     buildTypes {

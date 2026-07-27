@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import com.saarhaber.supernova.BuildConfig
 import com.saarhaber.supernova.SupernovaApp
 import com.saarhaber.supernova.data.BooksRepository
 import com.saarhaber.supernova.data.FavoritesRepository
@@ -54,6 +55,13 @@ class HomeViewModel(
     }
 
     fun refresh() {
+        if (BuildConfig.NYT_API_KEY.isBlank()) {
+            _uiState.value = BestSellersUiState.Error(
+                "No NYT API key configured. Add supernova.nytApiKey to your " +
+                    "~/.gradle/gradle.properties and rebuild — see the README."
+            )
+            return
+        }
         val list = _selectedList.value
         _uiState.value = BestSellersUiState.Loading
         viewModelScope.launch {
