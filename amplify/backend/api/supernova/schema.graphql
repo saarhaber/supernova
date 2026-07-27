@@ -1,7 +1,0 @@
-type Book @model {
-  id: ID!
-  name: String!
-  description: String
-  link: String
-  image: String
-}

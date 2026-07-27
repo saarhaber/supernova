@@ -1,29 +1,18 @@
-node_modules/**/*
-.expo/*
-npm-debug.*
-*.jks
-*.p8
-*.p12
-*.key
-*.mobileprovision
-*.orig.*
-web-build/
-
-# macOS
+*.iml
+.gradle
+/local.properties
+/.idea
 .DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+app/build/
+*.apk
+*.aab
+*.keystore
+!debug.keystore
 
-#amplify
-amplify/\#current-cloud-backend
-amplify/.config/local-*
-amplify/mock-data
-amplify/backend/amplify-meta.json
-amplify/backend/awscloudformation
-build/
-dist/
-node_modules/
-aws-exports.js
-awsconfiguration.json
-amplifyconfiguration.json
-amplify-build-config.json
-amplify-gradle-config.json
-amplifytools.xcconfig
+# The real Firebase config must not be committed.
+# A placeholder google-services.json is tracked so the project builds;
+# replace it locally with your own from the Firebase console.
